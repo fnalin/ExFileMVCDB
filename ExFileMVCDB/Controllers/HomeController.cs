@@ -1,30 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using ExFileMVCDB.Models;
+using System.IO;
 using System.Web.Mvc;
 
 namespace ExFileMVCDB.Controllers
 {
     public class HomeController : Controller
     {
+        private ExFileMVCDBContext _ctx;
+
+        public HomeController()
+        {
+            _ctx = new ExFileMVCDBContext();
+        }
+
         public ActionResult Index()
         {
+            var dados = _ctx.Arquivos;
+            return View(dados);
+        }
+
+        public ActionResult EnviarArquivo()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult EnviarArquivo(FormCollection form)
+        {
+            if (Request.Files.Count != 1)
+            {
+                return View();
+            }
+
+            var post = Request.Files[0];
+
+            if (post == null)
+            {
+                return View();
+            }
+
+            var obj = new Arquivo();
+
+            var file = new FileInfo(post.FileName);
+            obj.Nome = file.Name;
+            obj.AnexoExtensao = file.Extension;
+            obj.AnexoTipo = post.ContentType;
+
+            using (var reader = new BinaryReader(post.InputStream))
+                obj.AnexoBytes = reader.ReadBytes(post.ContentLength);
+
+
+            _ctx.Arquivos.Add(obj);
+            _ctx.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.Message = "Aplicação criada para teste";
             return View();
         }
 
-        public ActionResult Contact()
+       
+        protected override void Dispose(bool disposing)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            _ctx.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Enviar Arquivo";
+}
+
+<div id="formCadastro" class="row">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <fieldset>
+            <legend>@ViewBag.Title</legend>
+
+            <div class="controls">
+                <input id="file" name="file" type="file" />
+            </div>
+            <br />
+            <div>
+                <button class="btn btn-success" type="submit">Enviar</button>
+                <a class="btn btn-danger" href="@Url.Action("Index")">Cancelar e Voltar</a>
+            </div>
+        </fieldset>
+    }
+</div>
