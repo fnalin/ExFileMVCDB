@@ -4,51 +4,52 @@
     ViewBag.Title = "Home Page";
 }
 
+<div class="row text-center">
+    <h4>Página inicial - <small>Listagem de Arquivos</small></h4>
+</div>
+<br />
+<!-- Button trigger modal -->
+<div class="row text-center">
+    <button class="btn btn-default" data-toggle="modal" data-target="#myModal">
+        Enviar - upload
+    </button>
+</div>
+<br />
 <div class="row">
-    <div class="col-sm-6">
-        <h4>Página inicial - <small>Listagem de Arquivos</small></h4>
+    <div class="col-md-8 col-md-offset-2">
+        <table class="table table-condensed table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AnexoTipo)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AnexoTipo)
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-default"
+                               href="@Url.Action("ReceberArquivo", "Home", new { id = item.ID })" title="Baixar @item.Nome"><i class="glyphicon glyphicon-download"></i></a>
+                            <button type="button" class="btn btn-default">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
-
-<table class="table table-condensed">
-    <thead>
-        <tr>
-            <th style="width:300px;">
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            @* <th>
-                    @Html.DisplayNameFor(model => model.Extensao)
-                </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.AnexoTipo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Extensao)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.AnexoTipo)
-                </td>
-                <td style="width:80px;">
-                    <div class="btn-group btn-grupo">
-                        <div class="div-btn">
-                            <a class="btn-mini edit-coletor" href="@Url.Action("ReceberArquivo", "Home", new { id = item.ID })" title="Baixar @item.Nome"><i class="icon-retweet"></i></a>
-                        </div>
-                        <div class="div-btn">
-                            <a class="btn-mini del-coletor" href="@Url.Action("ExcluirArquivo", "Home", new { id = item.ID })" title="Excluir @item.Nome"><i class="icon-trash"></i></a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@Html.Partial("_Upload")

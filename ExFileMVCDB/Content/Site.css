@@ -1,19 +1,51 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 20px;
     padding-bottom: 20px;
+    background-image: url(/img/back-1600x1024.jpg);
+    background-color: #6b6b6b;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.logo-cabecalho {
+    display: block;
+    font-size: 2em;
+    padding: 10px 0;
+}
+
+    .logo-cabecalho a {
+        color: #fff;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+#cabecalho {
+    color: #fff;
+    padding: 0 !important;
 }
 
 /* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.body-content-sub {
+    padding: 10px 30px;
+    min-height: 500px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.body-content {
+    margin-top: 0;
+    background: #fff;
+    padding: 0 !important;
+}
+
+    .body-content h5 {
+        color: #5cb85c /*#3ab7ff*/;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+
+.body-content-rodape {
+    padding-top: 10px;
 }
 
 /* styles for validation helpers */

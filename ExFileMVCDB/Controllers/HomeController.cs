@@ -1,6 +1,7 @@
 ﻿using ExFileMVCDB.Models;
 using System.IO;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace ExFileMVCDB.Controllers
 {
@@ -17,6 +18,20 @@ namespace ExFileMVCDB.Controllers
         {
             var dados = _ctx.Arquivos;
             return View(dados);
+        }
+
+        public ActionResult ReceberArquivo(int id)
+        {
+            ActionResult result;
+
+            var obj = _ctx.Arquivos.FirstOrDefault(a => a.ID == id);
+
+            result = obj == null
+                ? (ActionResult)View("Error")
+                //: new FileContentResult(obj.Bytes.ToArray(), obj.Tipo); //Caso queira abrir o arquivo
+                : File(obj.AnexoBytes.ToArray(), obj.AnexoTipo, obj.Nome);
+
+            return result;
         }
 
         public ActionResult EnviarArquivo()
