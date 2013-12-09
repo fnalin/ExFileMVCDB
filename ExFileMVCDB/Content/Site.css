@@ -1,7 +1,6 @@
 ﻿body {
     padding-top: 20px;
     padding-bottom: 20px;
-    background-image: url(/img/back-1600x1024.jpg);
     background-color: #6b6b6b;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -25,7 +24,6 @@
     padding: 0 !important;
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content-sub {
     padding: 10px 30px;
     min-height: 500px;
@@ -38,37 +36,11 @@
 }
 
     .body-content h5 {
-        color: #5cb85c /*#3ab7ff*/;
+        color: #5cb85c;
         text-transform: uppercase;
         font-weight: bold;
     }
 
-
 .body-content-rodape {
     padding-top: 10px;
-}
-
-/* styles for validation helpers */
-.field-validation-error {
-    color: #b94a48;
-}
-
-.field-validation-valid {
-    display: none;
-}
-
-input.input-validation-error {
-    border: 1px solid #b94a48;
-}
-
-input[type="checkbox"].input-validation-error {
-    border: 0 none;
-}
-
-.validation-summary-errors {
-    color: #b94a48;
-}
-
-.validation-summary-valid {
-    display: none;
 }

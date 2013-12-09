@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web.Mvc;
 using System.Linq;
+using System;
 
 namespace ExFileMVCDB.Controllers
 {
@@ -33,12 +34,7 @@ namespace ExFileMVCDB.Controllers
 
             return result;
         }
-
-        public ActionResult EnviarArquivo()
-        {
-            return View();
-        }
-
+       
         [HttpPost]
         public ActionResult EnviarArquivo(FormCollection form)
         {
@@ -71,12 +67,26 @@ namespace ExFileMVCDB.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ExcluirArquivo(int id)
+        {
+            if (id == 1)
+            {
+                throw new Exception("Operação não permitida");
+            }
+
+            var arquivo = _ctx.Arquivos.Find(id);
+            _ctx.Arquivos.Remove(arquivo);
+            _ctx.SaveChanges();
+
+            return RedirectToAction("Index");
+
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Aplicação criada para teste";
             return View();
         }
-
        
         protected override void Dispose(bool disposing)
         {

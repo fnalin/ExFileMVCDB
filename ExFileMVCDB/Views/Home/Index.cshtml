@@ -42,7 +42,7 @@
                         <td class="text-center">
                             <a class="btn btn-default"
                                href="@Url.Action("ReceberArquivo", "Home", new { id = item.ID })" title="Baixar @item.Nome"><i class="glyphicon glyphicon-download"></i></a>
-                            <button type="button" class="btn btn-default">
+                            <button class="btn btn-default delete-btn" data-nome="@item.Nome" data-id="@item.ID" title="Excluir @item.Nome">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </button>
                         </td>
@@ -53,3 +53,22 @@
     </div>
 </div>
 @Html.Partial("_Upload")
+@Html.Partial("_Delete")
+@section scripts {
+    <script>
+        $(".delete-btn").click(function (e) {
+            e.preventDefault();
+            var itemID = $(this).data('id');
+            var nome = $(this).data("nome");
+            $('#deleteModal').modal('show');
+            $(".modal-body input[type=hidden]").val(itemID);
+            $(".modal-body span").text(nome);
+        });
+        $("#deleteModal .modal-footer button").click(function (e) {
+            e.preventDefault();
+            var itemID = $(".modal-body input[type=hidden]").val();
+            window.location = "Home/ExcluirArquivo/" + itemID;
+            $('#deleteModal').modal('hide');
+        });
+    </script>
+}
